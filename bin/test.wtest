@@ -1,0 +1,24 @@
+import Vikingos.*
+import Lugares.*
+import Expediciones.*
+import Castas.*
+
+describe "test de vikingos" {
+	const esclavoSoldado = new Soldado(cantArmas = 10, oro = 0, vidasCobradas = 100, tipo = jarl)
+	const nobleSoldado = new Soldado(cantArmas = 10, oro = 0, vidasCobradas = 100, tipo = thrall)
+	const esclavoGranjero = new Granjero(cantHijos = 4, hectareas = 2000, oro = 0, tipo = jarl)
+	const aldea = new Aldea(cantidadDeCrucifijos = 10)
+	const capital = new Capital(factorDeRiqueza = 1.5)
+	const expedicion = new Expedicion(participantes = [nobleSoldado, esclavoGranjero], lugaresAInvadir = [aldea, capital])
+	
+	test "esclavoSoldado no puede subirse a la expedicion" {
+		assert.throwsExceptionLike(
+   		new DomainException( message = "No puede ir a la expedicion" ), 
+   		{ esclavoSoldado.irAExpedicion(expedicion) }
+	)
+	}
+	
+	test "expedicion no vale la pena" {
+		assert.notThat(expedicion.valeLaPena())
+	}
+}
